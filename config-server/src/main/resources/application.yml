@@ -1,0 +1,13 @@
+# Porta padrão
+server:
+  port: 8888
+
+
+# Profiles escolhe o ambiente a partir de sua maquina
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active:
+      - native

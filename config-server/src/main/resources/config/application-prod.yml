@@ -4,8 +4,8 @@ spring:
 
 
 greeting-service:
-  greeting: "Hello"
-  default_value: "Mundo"
+  greeting: "Cia"
+  default_value: "Mondo"
 
 
 server:
