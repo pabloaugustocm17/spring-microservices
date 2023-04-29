@@ -1,4 +1,4 @@
-# Porta padrão
+# Porta padrï¿½o
 server:
   port: 8888
 
@@ -8,6 +8,11 @@ server:
 spring:
   application:
     name: config-server
-  profiles:
-    active:
-      - native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/pabloaugustocm17/spring-microservices
+          default-label: main
+          search-paths:
+            - 'config-services*'
