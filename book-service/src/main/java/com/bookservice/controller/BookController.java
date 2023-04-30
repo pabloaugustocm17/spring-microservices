@@ -19,9 +19,12 @@ public class BookController {
 
     private final BookService BOOK_SERVICE;
 
-    public BookController(ConfigurationEnv configurationEnv, BookService bookService){
+    private final ResponseService RESPONSE_SERVICE;
+
+    public BookController(ConfigurationEnv configurationEnv, BookService bookService, ResponseService responseService){
         this.ENVS = configurationEnv;
         this.BOOK_SERVICE = bookService;
+        this.RESPONSE_SERVICE = responseService;
     }
 
     @GetMapping("{id}/{currency}")
@@ -36,7 +39,7 @@ public class BookController {
 
         String port = ENVS.returnPort();
 
-        Cambio cambio = ResponseService.getCambio(currency, book.getPrice());
+        Cambio cambio = RESPONSE_SERVICE.retornaCambio(currency, book.getPrice());
 
         return BOOK_SERVICE.factoryBookDTO(book, currency, port, cambio.getConvertedValue());
     }
