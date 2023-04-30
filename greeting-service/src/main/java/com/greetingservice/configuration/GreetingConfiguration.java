@@ -1,8 +1,10 @@
 package com.greetingservice.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
+@RefreshScope
 @Component
 @ConfigurationProperties(value = "greeting-service")
 public class GreetingConfiguration {
