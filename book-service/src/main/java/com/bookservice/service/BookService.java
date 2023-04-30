@@ -30,9 +30,11 @@ public class BookService {
 
     /* Utils */
 
-    public BookDTO factoryBookDTO(Book book, String port, String currency){
+    public BookDTO factoryBookDTO(Book book, String currency, String port, Double price){
 
-        return new BookDTO(book, port, currency);
+        book.setPrice(price);
+
+        return new BookDTO(book, currency, port);
 
     }
 

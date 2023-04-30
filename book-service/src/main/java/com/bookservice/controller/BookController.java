@@ -3,7 +3,9 @@ package com.bookservice.controller;
 import com.bookservice.config.ConfigurationEnv;
 import com.bookservice.dto.BookDTO;
 import com.bookservice.model.Book;
+import com.bookservice.response.Cambio;
 import com.bookservice.service.BookService;
+import com.bookservice.service.ResponseService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +36,9 @@ public class BookController {
 
         String port = ENVS.returnPort();
 
-        return BOOK_SERVICE.factoryBookDTO(book, port, currency);
+        Cambio cambio = ResponseService.getCambio(currency, book.getPrice());
+
+        return BOOK_SERVICE.factoryBookDTO(book, currency, port, cambio.getConvertedValue());
     }
 
 }
