@@ -26,7 +26,7 @@ public class GreetingController {
 
     @RequestMapping("/greeting")
     public Greeting greeting(
-            @RequestParam(value = "name") String name
+            @RequestParam(value = "name", defaultValue = "") String name
     ){
 
         if(name.isEmpty()){
