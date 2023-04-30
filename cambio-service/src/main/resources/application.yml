@@ -5,20 +5,19 @@ spring:
   application:
     name: cambio-service
   datasource:
-    hikari:
-      driver-class-name: ${DRIVER}
-      jdbc-url: ${JDBC_URL}
-      username: ${DB_USERNMAE}
-      password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${JDBC_URL}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: ${DIALECT}
+        dialect: org.hibernate.dialect.MySQLDialect
   flyway:
     url: ${DB_URL}
     schemas: ${SCHEMA}
-    user: ${DB_USERNMAE}
+    user: ${DB_USERNAME}
     password: ${DB_PASSWORD}

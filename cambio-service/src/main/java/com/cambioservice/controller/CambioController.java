@@ -2,6 +2,7 @@ package com.cambioservice.controller;
 
 import com.cambioservice.config.ConfigurationEnv;
 import com.cambioservice.model.Cambio;
+import com.cambioservice.service.CambioService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +16,14 @@ public class CambioController {
 
     private final ConfigurationEnv ENVS;
 
-    public CambioController(ConfigurationEnv configurationEnv){
+    private final CambioService CAMBIO_SERVICE;
+
+    public CambioController(ConfigurationEnv configurationEnv, CambioService cambioService){
         this.ENVS = configurationEnv;
+        this.CAMBIO_SERVICE = cambioService;
     }
+
+    /* Requisições */
 
     @GetMapping(value = "{amount}/{from}/{to}")
     public Cambio retornaCambio(
@@ -28,9 +34,13 @@ public class CambioController {
 
             ){
 
+        Cambio cambio = CAMBIO_SERVICE.findByFromAndTo(from, to);
+
         String port = ENVS.returnPort();
 
-        return new Cambio(1L, from, to, BigDecimal.ONE, BigDecimal.ONE, port);
+        cambio = CAMBIO_SERVICE.factoryCambio(cambio, port, amount);
+
+        return cambio;
     }
 
 }

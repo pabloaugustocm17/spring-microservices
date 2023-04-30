@@ -1,37 +1,47 @@
 package com.cambioservice.model;
 
+import jakarta.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Entity(name = "cambio")
 public class Cambio implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "from_currency", nullable = false, length = 3)
     private String from;
 
+    @Column(name = "to_currency", nullable = false, length = 3)
     private String to;
 
+    @Column(nullable = false)
     private BigDecimal conversionFactor;
 
-    private BigDecimal conversionValue;
-
+    @Transient
     private String enviromnet;
+
+    @Transient
+    private BigDecimal convertedValue;
 
     public Cambio(){
 
     }
 
-    public Cambio(Long id, String from, String to, BigDecimal conversionFactor, BigDecimal conversionValue, String enviromnet) {
+    public Cambio(Long id, String from, String to, BigDecimal conversionFactor, String enviromnet, BigDecimal convertedValue) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.conversionFactor = conversionFactor;
-        this.conversionValue = conversionValue;
         this.enviromnet = enviromnet;
+        this.convertedValue = convertedValue;
     }
 
     public Long getId() {
@@ -66,19 +76,19 @@ public class Cambio implements Serializable {
         this.conversionFactor = conversionFactor;
     }
 
-    public BigDecimal getConversionValue() {
-        return conversionValue;
-    }
-
-    public void setConversionValue(BigDecimal conversionValue) {
-        this.conversionValue = conversionValue;
-    }
-
     public String getEnviromnet() {
         return enviromnet;
     }
 
     public void setEnviromnet(String enviromnet) {
         this.enviromnet = enviromnet;
+    }
+
+    public BigDecimal getConvertedValue() {
+        return convertedValue;
+    }
+
+    public void setConvertedValue(BigDecimal convertedValue) {
+        this.convertedValue = convertedValue;
     }
 }
