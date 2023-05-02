@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration
+//@Configuration
+@Deprecated
 public class ApiGatewayConfig {
 
+    /*
     @Bean
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder){
 
@@ -23,7 +25,7 @@ public class ApiGatewayConfig {
                                 .uri("lb://cambio-service")
                         )
                 .build();
-    }
+    }*/
 
 }
 

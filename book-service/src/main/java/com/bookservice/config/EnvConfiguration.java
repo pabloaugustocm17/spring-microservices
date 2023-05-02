@@ -4,11 +4,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class ConfigurationEnv {
+public class EnvConfiguration {
 
     private final Environment ENVS;
 
-    public ConfigurationEnv(Environment environment){
+    public EnvConfiguration(Environment environment){
         this.ENVS = environment;
     }
 

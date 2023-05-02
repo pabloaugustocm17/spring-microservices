@@ -1,6 +1,6 @@
 package com.bookservice.controller;
 
-import com.bookservice.config.ConfigurationEnv;
+import com.bookservice.config.EnvConfiguration;
 import com.bookservice.dto.BookDTO;
 import com.bookservice.model.Book;
 import com.bookservice.response.Cambio;
@@ -10,19 +10,21 @@ import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping(value = "book-service/")
+@Tag(name = "Book endpoint")
 public class BookController {
 
-    private final ConfigurationEnv ENVS;
+    private final EnvConfiguration ENVS;
 
     private final BookService BOOK_SERVICE;
 
@@ -30,7 +32,7 @@ public class BookController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
-    public BookController(ConfigurationEnv configurationEnv, BookService bookService, ResponseService responseService){
+    public BookController(EnvConfiguration configurationEnv, BookService bookService, ResponseService responseService){
         this.ENVS = configurationEnv;
         this.BOOK_SERVICE = bookService;
         this.RESPONSE_SERVICE = responseService;
@@ -46,6 +48,7 @@ public class BookController {
     @CircuitBreaker(name = "find-book", fallbackMethod = "fallbackFindBook")
     @RateLimiter(name = "default")
     @Bulkhead(name = "default")
+    @Operation(summary = "Find a book by id")
     public BookDTO findBook(
 
             @PathVariable(name = "id") Long id,
