@@ -6,9 +6,6 @@ spring:
   cloud:
     config:
       profile: dev
-greeting-service:
-  greeting: "Hello"
-  default_value: "Mundo"
 
 
 server:

@@ -44,6 +44,10 @@ spring:
     user: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 
 eureka:
   client:
