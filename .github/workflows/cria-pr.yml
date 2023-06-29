@@ -1,0 +1,32 @@
+name: Cria PR
+
+on:
+  push:
+    branches:
+      - teste	  
+jobs:	  
+ build:
+  runs-on: ubuntu-latest
+  steps:
+  
+  - name: Checkout
+    uses: actions/checkout@v3
+  
+  - name: Extrai informações 
+    uses: rlespinasse/git-commit-data-action@v1.x
+  
+  - name: Autor
+    run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
+  
+  - name: Cria PR
+    uses: peter-evans/create-pull-request@v3
+    with:
+     branch: teste
+     base: main
+     title: "Teste"
+     commiter: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
+     author: ${{env.GIT_COMMIT_AUTHOR_NAME}} <${{env.GIT_COMMIT_AUTHOR_EMAIL}}">
+     body:
+      PR Automática para Main
+     token: ${{secrets.GITHUB_TOKEN}}
+     delete-branch: false
